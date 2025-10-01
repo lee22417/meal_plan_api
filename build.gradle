@@ -1,6 +1,6 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.1'
+	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.7'
 }
 
@@ -24,20 +24,26 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.projectlombok:lombok' // Lombok
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-security'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// Spring Boot Starters
+	implementation 'org.springframework.boot:spring-boot-starter-web' // Spring MVC 지원
+	implementation 'org.springframework.boot:spring-boot-starter-validation' // Bean Validation 지
+	developmentOnly 'org.springframework.boot:spring-boot-devtools' // 저장 시 코드 변경 사항을 자동으로 반영
+	implementation 'org.springframework.boot:spring-boot-starter-security' // Spring Security 기본 설정
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa' // JPA
+	implementation 'org.springframework.boot:spring-boot-starter-webflux' // WebFlux (Reactive) (Webclient) 지원
 	implementation 'org.springframework.session:spring-session-core'
-	// implementation 'mysql:mysql-connector-java'
-	// implementation 'org.hibernate:hibernate-core'
 
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'com.h2database:h2'
-	// runtimeOnly 'com.mysql:mysql-connector-j'
-
 	annotationProcessor 'org.projectlombok:lombok'
-	testAnnotationProcessor('org.projectlombok:lombok')
+
+	// MySQL
+	runtimeOnly 'com.mysql:mysql-connector-j' // MySQL 연결을 위한 JDBC 드라이버
+	// runtimeOnly 'mysql:mysql-connector-java:8.0.35'
+	
+	// 
+	runtimeOnly 'com.h2database:h2' // 테스트용 H2 인메모리 DB
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
