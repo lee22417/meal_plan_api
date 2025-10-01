@@ -2,6 +2,10 @@
   ```
   ./gradlew bootRun
   ./gradlew clean
+  ./gradlew clean build --refresh-dependencies   
+
+  - mysql
+  brew services start mysql
   ```
 
 - Tools
