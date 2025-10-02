@@ -1,11 +1,11 @@
 package com.mealplan.dto;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Data
 @Builder
 public class ErrorResponseDto { // 에러 응답 dto
     private boolean success;
