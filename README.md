@@ -10,11 +10,16 @@
 
 - Tools
   ```
-  Java
-  Spring boot
-  JPA
-  gradle
+  Java, Spring boot, gradle
   MySQL
+  JPA
+  ```
+
+- etc
+  ```
+  ExceptionHandler
+  Dto
+
   ```
 
 - Memo

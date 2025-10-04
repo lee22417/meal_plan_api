@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ErrorResponseDto handleValidationException(MethodArgumentNotValidException ex) {
     String message = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
-    return ErrorResponseDto.toEntity(false, message, HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase());
+    return ErrorResponseDto.of(false, message, HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase());
   }
 
   // ---- 사용자 정의 exception
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     }
     */
 
-    return ErrorResponseDto.toEntity(false, ex.getMessage(), 
+    return ErrorResponseDto.of(false, ex.getMessage(), 
       HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.getReasonPhrase());
   }
 }

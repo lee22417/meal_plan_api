@@ -4,7 +4,7 @@
 4. 테이블 설계
 5. AOP
 
-
+. query DSL
 . Webflux
-. junit
+. junit (test)
 ```
