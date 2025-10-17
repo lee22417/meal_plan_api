@@ -9,7 +9,7 @@ import com.mealplan.entity.user.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-  boolean existsByLoginId(String loginId);
-  boolean existsByPhoneNumber(String phoneNumber);
-  Optional<User> findByLoginId(String loginId);
+  boolean existsByUserId(String userId);
+  boolean existsByUserPhone(String userPhone);
+  Optional<User> findByUserId(String userId);
 }

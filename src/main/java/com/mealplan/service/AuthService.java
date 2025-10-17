@@ -24,29 +24,29 @@ public class AuthService {
   
   // 회원가입
   public SimpleResponseDto register(UserRegisterRequestDto dto) {
-    String loginId = dto.getLoginId();
-    String rawPassword = dto.getPassword();
-    String name = dto.getName();
-    String phoneNumber = dto.getPhoneNumber();
+    String userId = dto.getUserId();
+    String rawUserPw = dto.getUserPw();
+    String userName = dto.getUserName();
+    String userPhone = dto.getUserPhone();
 
     // 아이디 중복 검사 
-    if(userRepository.existsByLoginId(loginId)) {
+    if(userRepository.existsByUserId(userId)) {
       throw new DuplicateUserException(DuplicateUserException.ErrorType.LOGIN_ID, "이미 사용 중인 아이디입니다.");
     }
 
     // 휴대폰 번호 중복 검사
-    if (userRepository.existsByPhoneNumber(phoneNumber)) {
+    if (userRepository.existsByUserPhone(userPhone)) {
       throw new DuplicateUserException(DuplicateUserException.ErrorType.PHONE_NUMBER, "이미 가입된 휴대폰 번호입니다.");
     }
 
     // 비밀번호 암호화
-    String encodedPassword = passwordEncoder.encode(rawPassword);
+    String encodedPassword = passwordEncoder.encode(rawUserPw);
     log.info("encodedPassword length : {}", encodedPassword.length());
 
     // 회원 저장
     User newUser = dto.toEntity(encodedPassword);
     userRepository.save(newUser);
 
-    return new SimpleResponseDto(true, "회원가입이 완료되었습니다.");
+    return new SimpleResponseDto(true, "회원가입 완료");
   }
 }

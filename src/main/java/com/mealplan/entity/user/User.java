@@ -26,22 +26,23 @@ public class User {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id; // pk
+  @Column(name = "u_id")
+  private Integer uId; // pk
 
-  @Column(name = "login_id", nullable = false, unique = true, length = 10)
-  private String loginId; // 회원 id
-
-  @Setter
-  @Column(nullable = false, length = 100) 
-  private String password; // 회원 비밀번호
+  @Column(name = "user_id", nullable = false, unique = true, length = 10)
+  private String userId; // 회원 id
 
   @Setter
-  @Column(nullable = false, length = 10)
-  private String name; // 회원 이름
+  @Column(name = "user_pw", nullable = false, length = 100) 
+  private String userPw; // 회원 비밀번호
 
   @Setter
-  @Column(name = "phone_number", nullable = false, unique = true, length = 11)
-  private String phoneNumber; // 회원 연락처
+  @Column(name = "user_name", nullable = false, length = 10)
+  private String userName; // 회원 이름
+
+  @Setter
+  @Column(name = "user_phone", nullable = false, unique = true, length = 11)
+  private String userPhone; // 회원 연락처
 
   @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
