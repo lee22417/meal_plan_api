@@ -41,8 +41,13 @@ dependencies {
 	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j' // MySQL 연결을 위한 JDBC 드라이버
 	// runtimeOnly 'mysql:mysql-connector-java:8.0.35'
+
+	// jwt
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.5' // JSON 처리
 	
-	// 
+	// 테스트
 	runtimeOnly 'com.h2database:h2' // 테스트용 H2 인메모리 DB
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
