@@ -28,9 +28,9 @@ public class AuthController {
   private final AuthService authService;
 
   // 회원가입
-  @PostMapping("/register")
-  public SimpleResponseDto register(@Valid @RequestBody UserRegisterRequestDto dto) {
-    return authService.register(dto); 
+  @PostMapping("/signup")
+  public SimpleResponseDto signup(@Valid @RequestBody UserRegisterRequestDto dto) {
+    return authService.signup(dto); 
   }
   
   // 로그인

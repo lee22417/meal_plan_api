@@ -1,14 +1,14 @@
 package com.mealplan.service.auth;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.mealplan.config.JwtConfig;
+import com.mealplan.constants.RoleConstants;
 import com.mealplan.dto.DataResponseDto;
 import com.mealplan.dto.SimpleResponseDto;
 import com.mealplan.dto.user.UserLoginRequestDto;
@@ -35,7 +35,7 @@ public class AuthService {
   private final JwtUtil jwtUtil;
   
   // 회원가입
-  public SimpleResponseDto register(UserRegisterRequestDto dto) {
+  public SimpleResponseDto signup(UserRegisterRequestDto dto) {
     String userId = dto.getUserId();
     String rawUserPw = dto.getUserPw();
     String userName = dto.getUserName();
@@ -77,7 +77,8 @@ public class AuthService {
     }
 
     // jwt token 발급
-    String token = jwtUtil.generateToken(user.getUserId(), user.getUserId(), user.getUserName());
+    // role 정의 예) 회원 등급별 정의 -> (JwtAuthenticationFilter + filterChain 접근 권한 설정)
+    String token = jwtUtil.generateToken(user.getUserId(), user.getUserId(), List.of(RoleConstants.USER));
 
     // jwt token DB에 저장
     UserSession session = UserSession.of(token, jwtConfig.getExpirationMs());
