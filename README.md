@@ -5,8 +5,13 @@
   ./gradlew clean
   ./gradlew clean build --refresh-dependencies
 
-  - mysql
+  - MySql
   brew services start mysql
+
+  - Spotless
+  ./gradlew spotlessCheck // code formatting 검사
+  ./gradlew spotlessApply // code formatting 적용
+
   ```
 
 - Tools
@@ -14,15 +19,16 @@
   ```
   Java, Spring boot, gradle
   MySQL
-  JPA
+  JPA, JWT
+  Spotless (code formatting)
   ```
 
 - etc
 
   ```
-  ExceptionHandler
-  Dto
-  Jwt
+  advice (ExceptionHandler), filter, config
+  dto, entity, exception, util, constants
+
   ```
 
 - 개선

@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.4'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.diffplug.spotless' version '6.20.0' // Spotless (포맷팅 자동화 + 코드 스타일 정리)
 }
 
 group = 'com.mealplan'
@@ -21,6 +22,31 @@ configurations {
 
 repositories {
 	mavenCentral()
+}
+
+// Spotless (포맷팅 자동화 + 코드 스타일 정리)
+spotless {
+	java {
+		// import 순서 정의
+		importOrder(
+			"java",
+			"javax",
+			"lombok",
+			"org.springframework",
+			"",
+			"\\#",
+			"org.junit",
+			"\\#org.junit",
+			"com.guide",
+			"\\#com.guide"
+		)
+		removeUnusedImports() // 사용하지 않는 import 제거
+		googleJavaFormat() // Google Java Style
+		target 'src/**/*.java' // 적용 범위
+
+		trimTrailingWhitespace() // 공백 제거
+		endWithNewline() // 끝부분 New Line 처리
+	}
 }
 
 dependencies {
