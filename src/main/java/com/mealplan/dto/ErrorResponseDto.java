@@ -15,12 +15,12 @@ public class ErrorResponseDto { // 에러 응답 dto
   private LocalDateTime timestamp;
 
   // 공용 생성 메서드
-  public static ErrorResponseDto of(boolean success, String message, int status, String error) {
+  public static ErrorResponseDto of(boolean success, int status, String error, String message) {
     return ErrorResponseDto.builder()
       .success(success)
-      .message(message)
       .status(status)
       .error(error)
+      .message(message)
       .timestamp(LocalDateTime.now())
       .build();
   }
