@@ -3,7 +3,7 @@ package com.mealplan.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mealplan.entity.user.User;
+import com.mealplan.entity.User;
 import com.mealplan.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;

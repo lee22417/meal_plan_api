@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mealplan.dto.SimpleResponseDto;
 import com.mealplan.dto.user.UserRegisterRequestDto;
-import com.mealplan.entity.user.User;
+import com.mealplan.entity.User;
 import com.mealplan.exception.user.DuplicateUserException;
 import com.mealplan.repository.UserRepository;
 

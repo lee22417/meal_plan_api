@@ -1,6 +1,6 @@
 package com.mealplan.dto.user;
 
-import com.mealplan.entity.user.User;
+import com.mealplan.entity.User;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
