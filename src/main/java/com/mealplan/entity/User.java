@@ -1,4 +1,4 @@
-package com.mealplan.entity.user;
+package com.mealplan.entity;
 
 import java.time.LocalDateTime;
 

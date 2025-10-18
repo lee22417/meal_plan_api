@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.mealplan.entity.user.User;
+import com.mealplan.entity.User;
 import com.mealplan.service.UserService;
 
 import java.util.List;
