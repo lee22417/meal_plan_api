@@ -1,14 +1,14 @@
 package com.mealplan.advice;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import static com.mealplan.util.ErrorResponseUtil.buildResponse;
 
 import com.mealplan.dto.ErrorResponseDto;
 import com.mealplan.exception.auth.DuplicateUserException;
 import com.mealplan.exception.auth.LoginFailedException;
-import static com.mealplan.util.ErrorResponseUtil.buildResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 // auth 관련 예외 처리
 // basePackages = "com.mealplan.controller.auth" -> 해당 패키지 내 컨트롤러에서 던진 예외만 처리
@@ -18,7 +18,7 @@ public class AuthExceptionHandler {
   @ExceptionHandler(DuplicateUserException.class)
   public ResponseEntity<ErrorResponseDto> handleDuplicateUser(DuplicateUserException e) {
     // 예시 코드
-    /* 
+    /*
     if(ex.getErrorType() == DuplicateUserException.ErrorType.USER_ID) {
     } else {
     }

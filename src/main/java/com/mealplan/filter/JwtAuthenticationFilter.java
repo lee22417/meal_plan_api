@@ -7,6 +7,9 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,20 +19,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final JwtUtil jwtUtil;
 
   @Override
-  protected void doFilterInternal(HttpServletRequest request,
-    HttpServletResponse response,
-    FilterChain filterChain)
-    throws ServletException, IOException {
+  protected void doFilterInternal(
+      HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+      throws ServletException, IOException {
 
     String authHeader = request.getHeader("Authorization");
 
@@ -45,19 +43,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       Claims claims = jwtUtil.validateTokenAndStatus(token);
       String uId = claims.getSubject();
       // String userId = claims.get("userId", String.class);
-      List<String> roles = claims.get("roles", List.class); // JWT 발급 시 roles 
+      List<String> roles = claims.get("roles", List.class); // JWT 발급 시 roles
 
       // roles -> GrantedAuthority 변환
-      List<GrantedAuthority> authorities = roles != null 
-        ? roles.stream()
-          .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
-          .collect(Collectors.toList())
-        : List.of();
-      
+      List<GrantedAuthority> authorities =
+          roles != null
+              ? roles.stream()
+                  .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                  .collect(Collectors.toList())
+              : List.of();
+
       // UsernamePasswordAuthenticationToken = 인증 정보 객체
       // 인자 -> 사용자 식별값, 패스워드, 권한 정보
       UsernamePasswordAuthenticationToken authentication =
-        new UsernamePasswordAuthenticationToken(uId, null, authorities);
+          new UsernamePasswordAuthenticationToken(uId, null, authorities);
       // request 정보 추가 (ip, session id 등)
       authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

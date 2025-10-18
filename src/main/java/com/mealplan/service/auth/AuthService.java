@@ -1,12 +1,5 @@
 package com.mealplan.service.auth;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import com.mealplan.config.JwtConfig;
 import com.mealplan.constants.RoleConstants;
 import com.mealplan.dto.DataResponseDto;
@@ -20,9 +13,13 @@ import com.mealplan.exception.auth.LoginFailedException;
 import com.mealplan.repository.UserRepository;
 import com.mealplan.repository.UserSessionRepository;
 import com.mealplan.util.JwtUtil;
-
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +30,7 @@ public class AuthService {
   private final PasswordEncoder passwordEncoder;
   private final JwtConfig jwtConfig;
   private final JwtUtil jwtUtil;
-  
+
   // 회원가입
   public SimpleResponseDto signup(UserRegisterRequestDto dto) {
     String userId = dto.getUserId();
@@ -41,14 +38,16 @@ public class AuthService {
     String userName = dto.getUserName();
     String userPhone = dto.getUserPhone();
 
-    // 아이디 중복 검사 
-    if(userRepository.existsByUserId(userId)) {
-      throw new DuplicateUserException(DuplicateUserException.ErrorType.USER_ID, "이미 사용 중인 아이디입니다.");
+    // 아이디 중복 검사
+    if (userRepository.existsByUserId(userId)) {
+      throw new DuplicateUserException(
+          DuplicateUserException.ErrorType.USER_ID, "이미 사용 중인 아이디입니다.");
     }
 
     // 휴대폰 번호 중복 검사
     if (userRepository.existsByUserPhone(userPhone)) {
-      throw new DuplicateUserException(DuplicateUserException.ErrorType.USER_PHONE, "이미 가입된 휴대폰 번호입니다.");
+      throw new DuplicateUserException(
+          DuplicateUserException.ErrorType.USER_PHONE, "이미 가입된 휴대폰 번호입니다.");
     }
 
     // 비밀번호 암호화
@@ -68,17 +67,24 @@ public class AuthService {
     String rawUserPw = dto.getUserPw();
 
     // 회원 조회
-    User user = userRepository.findByUserId(userId)
-      .orElseThrow(() -> new LoginFailedException(LoginFailedException.ErrorType.USER, "아이디 또는 비밀번호가 올바르지 않습니다."));
+    User user =
+        userRepository
+            .findByUserId(userId)
+            .orElseThrow(
+                () ->
+                    new LoginFailedException(
+                        LoginFailedException.ErrorType.USER, "아이디 또는 비밀번호가 올바르지 않습니다."));
 
     // 비밀번호 검증
-    if(!passwordEncoder.matches(rawUserPw, user.getUserPw())) {
-      throw new LoginFailedException(LoginFailedException.ErrorType.USER_PW, "아이디 또는 비밀번호가 올바르지 않습니다.");
+    if (!passwordEncoder.matches(rawUserPw, user.getUserPw())) {
+      throw new LoginFailedException(
+          LoginFailedException.ErrorType.USER_PW, "아이디 또는 비밀번호가 올바르지 않습니다.");
     }
 
     // jwt token 발급
     // role 정의 예) 회원 등급별 정의 -> (JwtAuthenticationFilter + filterChain 접근 권한 설정)
-    String token = jwtUtil.generateToken(user.getUserId(), user.getUserId(), List.of(RoleConstants.USER));
+    String token =
+        jwtUtil.generateToken(user.getUserId(), user.getUserId(), List.of(RoleConstants.USER));
 
     // jwt token DB에 저장
     UserSession session = UserSession.of(token, jwtConfig.getExpirationMs());
@@ -88,5 +94,4 @@ public class AuthService {
     data.put("token", token);
     return new DataResponseDto(true, "로그인 완료", data);
   }
-
 }

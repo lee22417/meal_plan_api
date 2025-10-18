@@ -1,7 +1,6 @@
 package com.mealplan.dto.user;
 
 import com.mealplan.entity.User;
-
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -27,10 +26,10 @@ public class UserRegisterRequestDto {
 
   public User toEntity(String encodedPassword) {
     return User.builder()
-      .userId(this.userId)
-      .userPw(encodedPassword)
-      .userName(this.userName)
-      .userPhone(this.userPhone)
-      .build();
+        .userId(this.userId)
+        .userPw(encodedPassword)
+        .userName(this.userName)
+        .userPhone(this.userPhone)
+        .build();
   }
 }

@@ -1,5 +1,8 @@
 package com.mealplan.config;
 
+import java.util.HashMap;
+import java.util.Map;
+import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -10,11 +13,6 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class DataSourceConfig {
@@ -27,8 +25,10 @@ public class DataSourceConfig {
 
   @Primary
   @Bean(name = "entityManagerFactory")
-  public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSource") DataSource dataSource) {
-    LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+      @Qualifier("dataSource") DataSource dataSource) {
+    LocalContainerEntityManagerFactoryBean entityManagerFactory =
+        new LocalContainerEntityManagerFactoryBean();
     entityManagerFactory.setDataSource(dataSource);
     entityManagerFactory.setPackagesToScan("com.mealplan.entity");
 
@@ -47,7 +47,9 @@ public class DataSourceConfig {
 
   @Primary
   @Bean(name = "transactionManager")
-  public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory") LocalContainerEntityManagerFactoryBean entityManagerFactory) {
+  public PlatformTransactionManager transactionManager(
+      @Qualifier("entityManagerFactory")
+          LocalContainerEntityManagerFactoryBean entityManagerFactory) {
     JpaTransactionManager transactionManager = new JpaTransactionManager();
     transactionManager.setEntityManagerFactory(entityManagerFactory.getObject());
     return transactionManager;

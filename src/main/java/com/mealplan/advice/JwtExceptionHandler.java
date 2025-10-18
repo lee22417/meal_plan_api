@@ -1,9 +1,6 @@
 package com.mealplan.advice;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import static com.mealplan.util.ErrorResponseUtil.buildResponse;
 
 import com.mealplan.dto.ErrorResponseDto;
 import com.mealplan.exception.jwt.JwtException;
@@ -11,8 +8,10 @@ import com.mealplan.exception.jwt.JwtExpiredException;
 import com.mealplan.exception.jwt.JwtInvalidException;
 import com.mealplan.exception.jwt.JwtNotFoundException;
 import com.mealplan.exception.jwt.JwtRevokedException;
-
-import static com.mealplan.util.ErrorResponseUtil.buildResponse;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class JwtExceptionHandler {

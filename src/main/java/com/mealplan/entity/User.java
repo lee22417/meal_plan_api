@@ -1,7 +1,5 @@
 package com.mealplan.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -33,7 +32,7 @@ public class User {
   private String userId; // 회원 id
 
   @Setter
-  @Column(name = "user_pw", nullable = false, length = 100) 
+  @Column(name = "user_pw", nullable = false, length = 100)
   private String userPw; // 회원 비밀번호
 
   @Setter
@@ -45,10 +44,10 @@ public class User {
   private String userPhone; // 회원 연락처
 
   @Column(name = "created_at", updatable = false)
-    private LocalDateTime createdAt;
+  private LocalDateTime createdAt;
 
   @Column(name = "updated_at")
-    private LocalDateTime updatedAt;
+  private LocalDateTime updatedAt;
 
   @PrePersist
   public void onCreate() {
@@ -59,5 +58,5 @@ public class User {
   @PreUpdate
   public void onUpdate() {
     this.updatedAt = LocalDateTime.now();
-  }    
+  }
 }

@@ -1,9 +1,8 @@
 package com.mealplan.dto;
 
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -17,11 +16,11 @@ public class ErrorResponseDto { // 에러 응답 dto
   // 공용 생성 메서드
   public static ErrorResponseDto of(boolean success, int status, String error, String message) {
     return ErrorResponseDto.builder()
-      .success(success)
-      .status(status)
-      .error(error)
-      .message(message)
-      .timestamp(LocalDateTime.now())
-      .build();
+        .success(success)
+        .status(status)
+        .error(error)
+        .message(message)
+        .timestamp(LocalDateTime.now())
+        .build();
   }
 }

@@ -1,7 +1,5 @@
 package com.mealplan.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +36,7 @@ public class UserSession {
   private LocalDateTime expiredAt; // 만료 시간
 
   @Column(name = "created_at", nullable = false, updatable = false)
-  private LocalDateTime createdAt; 
+  private LocalDateTime createdAt;
 
   @PrePersist
   public void onCreate() {
@@ -46,8 +45,8 @@ public class UserSession {
 
   public static UserSession of(String token, long expirationMs) {
     return UserSession.builder()
-      .token(token)
-      .expiredAt(LocalDateTime.now().plusNanos(expirationMs * 1_000_000))
-      .build();
+        .token(token)
+        .expiredAt(LocalDateTime.now().plusNanos(expirationMs * 1_000_000))
+        .build();
   }
 }
