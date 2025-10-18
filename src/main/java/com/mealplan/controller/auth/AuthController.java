@@ -1,11 +1,13 @@
-package com.mealplan.controller;
+package com.mealplan.controller.auth;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mealplan.dto.DataResponseDto;
 import com.mealplan.dto.SimpleResponseDto;
+import com.mealplan.dto.user.UserLoginRequestDto;
 import com.mealplan.dto.user.UserRegisterRequestDto;
-import com.mealplan.service.AuthService;
+import com.mealplan.service.auth.AuthService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -31,5 +33,9 @@ public class AuthController {
     return authService.register(dto); 
   }
   
-  
+  // 로그인
+  @PostMapping("/login")
+  public DataResponseDto login(@Valid @RequestBody UserLoginRequestDto dto) {
+    return authService.login(dto); 
+  }
 }

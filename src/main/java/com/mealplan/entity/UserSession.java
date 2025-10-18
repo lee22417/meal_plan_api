@@ -43,4 +43,11 @@ public class UserSession {
   public void onCreate() {
     this.createdAt = LocalDateTime.now();
   }
+
+  public static UserSession of(String token, long expirationMs) {
+    return UserSession.builder()
+      .token(token)
+      .expiredAt(LocalDateTime.now().plusNanos(expirationMs * 1_000_000))
+      .build();
+  }
 }
