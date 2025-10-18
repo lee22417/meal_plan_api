@@ -10,7 +10,6 @@ import com.mealplan.dto.ErrorResponseDto;
 // basePackages = "com.mealplan.controller.auth" -> 해당 패키지 내 컨트롤러에서 던진 예외만 처리
 @RestControllerAdvice(basePackages = "com.mealplan.controller.auth")
 public class AuthExceptionHandler {
-
   // 회원 중복 에러
   @ExceptionHandler(DuplicateUserException.class)
   public ErrorResponseDto handleDuplicateUser(DuplicateUserException ex) {

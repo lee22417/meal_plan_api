@@ -10,7 +10,6 @@ import com.mealplan.dto.ErrorResponseDto;
 // 모든 예외를 공통으로 처리할 수 있도록 @RestControllerAdvice 사용
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
   // controller @valid 에러
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ErrorResponseDto handleValidationException(MethodArgumentNotValidException ex) {

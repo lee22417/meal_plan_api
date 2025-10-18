@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 @EntityScan(basePackages = "com.mealplan.entity")
 @EnableTransactionManagement
 public class MealplanApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(MealplanApplication.class, args);
-    }
+  public static void main(String[] args) {
+    SpringApplication.run(MealplanApplication.class, args);
+  }
 }

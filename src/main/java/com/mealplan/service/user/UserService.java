@@ -1,4 +1,4 @@
-package com.mealplan.service;
+package com.mealplan.service.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +16,19 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public class UserService {
+  private final UserRepository userRepository;
 
-    @Autowired
-    private final UserRepository userRepository;
+  //
 
-    //
+  public List<User> getAllUsers() {
+    return userRepository.findAll();
+  }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
+  public Optional<User> getUserById(int id) {
+    return userRepository.findById(id);
+  }
 
-    public Optional<User> getUserById(int id) {
-        return userRepository.findById(id);
-    }
-
-    public User saveUser(User user) {
-        return userRepository.save(user);
-    }
+  public User saveUser(User user) {
+    return userRepository.save(user);
+  }
 }
