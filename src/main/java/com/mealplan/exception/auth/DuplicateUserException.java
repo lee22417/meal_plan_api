@@ -1,10 +1,10 @@
-package com.mealplan.exception.user;
+package com.mealplan.exception.auth;
 
-// user 에러
+// 회원 중복 에러
 public class DuplicateUserException extends RuntimeException {
   private final ErrorType errorType; // ENUM으로 구분 가능
 
-  public enum ErrorType { LOGIN_ID, PHONE_NUMBER }
+  public enum ErrorType { USER_ID, USER_PHONE }
 
   public DuplicateUserException(ErrorType errorType, String message) {
       super(message);
