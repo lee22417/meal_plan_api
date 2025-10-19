@@ -29,14 +29,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
 
-    String authHeader = request.getHeader("Authorization");
-
-    if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+    String token = jwtUtil.extractToken(request);
+    if (token == null) {
       filterChain.doFilter(request, response); // 토큰 없으면 다음 필터로
       return;
     }
-
-    String token = authHeader.substring(7);
 
     try {
       // JWT 검증 및 payload 추출

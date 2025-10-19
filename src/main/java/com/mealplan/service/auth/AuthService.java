@@ -94,4 +94,10 @@ public class AuthService {
     data.put("token", token);
     return new DataResponseDto(true, "로그인 완료", data);
   }
+
+  // 로그아웃
+  public SimpleResponseDto logout(String token) {
+    jwtUtil.expireTokenInDb(token);
+    return new SimpleResponseDto(true, "로그아웃 완료");
+  }
 }

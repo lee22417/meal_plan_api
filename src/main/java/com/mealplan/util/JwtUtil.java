@@ -12,6 +12,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -47,6 +48,15 @@ public class JwtUtil { // JWT util
         .setExpiration(new Date(System.currentTimeMillis() + jwtConfig.getExpirationMs()))
         .signWith(jwtConfig.getSecretKey(), SignatureAlgorithm.HS256)
         .compact();
+  }
+
+  // header에서 JWT 추출
+  public String extractToken(HttpServletRequest request) {
+    String authHeader = request.getHeader("Authorization");
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      return authHeader.substring(7);
+    }
+    return null;
   }
 
   // JWT 자체 검증 + DB 확인
