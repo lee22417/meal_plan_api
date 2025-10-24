@@ -1,5 +1,6 @@
 package com.mealplan.filter;
 
+import com.mealplan.security.CustomUserDetails;
 import com.mealplan.util.JwtUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
@@ -39,7 +40,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       // JWT 검증 및 payload 추출
       Claims claims = jwtUtil.validateTokenAndStatus(token);
       String uId = claims.getSubject();
-      // String userId = claims.get("userId", String.class);
+      String userId = claims.get("userId", String.class);
       List<String> roles = claims.get("roles", List.class); // JWT 발급 시 roles
 
       // roles -> GrantedAuthority 변환
@@ -50,10 +51,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                   .collect(Collectors.toList())
               : List.of();
 
+      // UserDetails 기반 principal 생성
+      CustomUserDetails userDetails = new CustomUserDetails(uId, userId, authorities);
+
       // UsernamePasswordAuthenticationToken = 인증 정보 객체
       // 인자 -> 사용자 식별값, 패스워드, 권한 정보
       UsernamePasswordAuthenticationToken authentication =
-          new UsernamePasswordAuthenticationToken(uId, null, authorities);
+          new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
       // request 정보 추가 (ip, session id 등)
       authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
