@@ -5,12 +5,16 @@ import com.mealplan.dto.SimpleResponseDto;
 import com.mealplan.dto.user.UserLoginRequestDto;
 import com.mealplan.dto.user.UserRegisterRequestDto;
 import com.mealplan.exception.jwt.JwtNotFoundException;
+import com.mealplan.security.CustomUserDetails;
 import com.mealplan.service.auth.AuthService;
 import com.mealplan.util.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,5 +48,13 @@ public class AuthController {
       throw new JwtNotFoundException("JWT 조회 실패 (header)");
     }
     return authService.logout(token);
+  }
+
+  // jwt token 조회
+  @GetMapping("/token")
+  public DataResponseDto getTokenInfo(@AuthenticationPrincipal CustomUserDetails userDetails) {
+    Map<String, Object> data =
+        Map.of("uid", userDetails.getUId(), "userId", userDetails.getUserId());
+    return new DataResponseDto(true, "조회 완료", data);
   }
 }

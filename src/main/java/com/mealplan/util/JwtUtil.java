@@ -39,6 +39,7 @@ public class JwtUtil { // JWT util
   }
 
   // JWT 발급
+  // role 정의 예) 회원 등급별 정의 -> (JwtAuthenticationFilter + filterChain 접근 권한 설정)
   public String generateToken(String uId, String userId, List<String> roles) {
     return Jwts.builder()
         .setSubject(uId)

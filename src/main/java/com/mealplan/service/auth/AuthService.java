@@ -82,9 +82,9 @@ public class AuthService {
     }
 
     // jwt token 발급
-    // role 정의 예) 회원 등급별 정의 -> (JwtAuthenticationFilter + filterChain 접근 권한 설정)
     String token =
-        jwtUtil.generateToken(user.getUserId(), user.getUserId(), List.of(RoleConstants.USER));
+        jwtUtil.generateToken(
+            Integer.toString(user.getUId()), user.getUserId(), List.of(RoleConstants.USER));
 
     // jwt token DB에 저장
     UserSession session = UserSession.of(token, jwtConfig.getExpirationMs());
